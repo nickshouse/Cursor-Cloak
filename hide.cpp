@@ -13,8 +13,9 @@ int main() {
     HCURSOR defaultCursor = LoadCursorFromFile("cursors/aero_arrow.cur");
     HCURSOR changedCursor = LoadCursorFromFile("cursors/cloak.cur");
     HCURSOR defaultLinkCursor = LoadCursorFromFile("cursors/aero_link.cur");
+    HCURSOR defaultTextCursor = LoadCursorFromFile("cursors/beam_i.cur");
 
-    if (!defaultCursor || !changedCursor || !defaultLinkCursor) {
+    if (!defaultCursor || !changedCursor || !defaultLinkCursor || !defaultTextCursor) {
         MessageBox(NULL, "Failed to load cursors.", "Error", MB_OK);
         return 0;
     }
@@ -24,6 +25,8 @@ int main() {
     SetSystemCursor(copyDefault, 32512);  // 32512 is OCR_NORMAL
     HCURSOR copyDefaultLink = CopyCursor(defaultLinkCursor);
     SetSystemCursor(copyDefaultLink, 32649);  // 32649 is OCR_HAND
+    HCURSOR copyDefaultText = CopyCursor(defaultTextCursor);
+    SetSystemCursor(copyDefaultText, 32513);  // 32513 is OCR_IBEAM
 
     DWORD cursorLastMoved = GetTickCount();
 
@@ -41,6 +44,10 @@ int main() {
                 copyDefaultLink = CopyCursor(defaultLinkCursor); // make new copy
                 SetSystemCursor(copyDefaultLink, 32649);
 
+                DestroyCursor(copyDefaultText); // destroy old copy
+                copyDefaultText = CopyCursor(defaultTextCursor); // make new copy
+                SetSystemCursor(copyDefaultText, 32513);
+
                 last_position = current_position;
                 cursorLastMoved = GetTickCount();
             } else {
@@ -52,6 +59,10 @@ int main() {
                     DestroyCursor(copyDefaultLink); // destroy old copy
                     copyDefaultLink = CopyCursor(changedCursor); // make new copy using cloak cursor
                     SetSystemCursor(copyDefaultLink, 32649);
+
+                    DestroyCursor(copyDefaultText); // destroy old copy
+                    copyDefaultText = CopyCursor(changedCursor); // make new copy using cloak cursor
+                    SetSystemCursor(copyDefaultText, 32513);
                 }
             }
         }
@@ -70,6 +81,8 @@ int main() {
     DestroyCursor(changedCursor);
     DestroyCursor(copyDefaultLink);
     DestroyCursor(defaultLinkCursor);
+    DestroyCursor(copyDefaultText);
+    DestroyCursor(defaultTextCursor);
 
     return 0;
 }
