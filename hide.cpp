@@ -9,18 +9,21 @@ int main() {
     GetCursorPos(&current_position);
     POINT last_position = current_position;
 
-    // Load the cursor from a file
-    HCURSOR defaultCursor = LoadCursorFromFile("cursors/default.cur");
+    // Load the cursors from files
+    HCURSOR defaultCursor = LoadCursorFromFile("cursors/aero_arrow.cur");
     HCURSOR changedCursor = LoadCursorFromFile("cursors/cloak.cur");
+    HCURSOR defaultLinkCursor = LoadCursorFromFile("cursors/aero_link.cur");
 
-    if (!defaultCursor || !changedCursor) {
+    if (!defaultCursor || !changedCursor || !defaultLinkCursor) {
         MessageBox(NULL, "Failed to load cursors.", "Error", MB_OK);
         return 0;
     }
 
-    // Change the default cursor
+    // Change the default cursors
     HCURSOR copyDefault = CopyCursor(defaultCursor);
-    SetSystemCursor(copyDefault, 32512);
+    SetSystemCursor(copyDefault, 32512);  // 32512 is OCR_NORMAL
+    HCURSOR copyDefaultLink = CopyCursor(defaultLinkCursor);
+    SetSystemCursor(copyDefaultLink, 32649);  // 32649 is OCR_HAND
 
     DWORD cursorLastMoved = GetTickCount();
 
@@ -34,14 +37,21 @@ int main() {
                 copyDefault = CopyCursor(defaultCursor); // make new copy
                 SetSystemCursor(copyDefault, 32512);
 
-                last_position = current_position;
+                DestroyCursor(copyDefaultLink); // destroy old copy
+                copyDefaultLink = CopyCursor(defaultLinkCursor); // make new copy
+                SetSystemCursor(copyDefaultLink, 32649);
 
+                last_position = current_position;
                 cursorLastMoved = GetTickCount();
             } else {
                 if (GetTickCount() - cursorLastMoved > CURSOR_IDLE_TIME) {
                     DestroyCursor(copyDefault); // destroy old copy
                     copyDefault = CopyCursor(changedCursor); // make new copy
                     SetSystemCursor(copyDefault, 32512);
+
+                    DestroyCursor(copyDefaultLink); // destroy old copy
+                    copyDefaultLink = CopyCursor(changedCursor); // make new copy using cloak cursor
+                    SetSystemCursor(copyDefaultLink, 32649);
                 }
             }
         }
@@ -58,6 +68,8 @@ int main() {
     DestroyCursor(copyDefault);
     DestroyCursor(defaultCursor);
     DestroyCursor(changedCursor);
+    DestroyCursor(copyDefaultLink);
+    DestroyCursor(defaultLinkCursor);
 
     return 0;
 }
