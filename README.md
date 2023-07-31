@@ -1,4 +1,4 @@
-# Mouse Cursor Hider
+# Mouse Cursor Hider (Windows)
 
 This C++ program is designed to hide your mouse cursor after it has been idle for a certain period of time. It accomplishes this by replacing the most commonly seen cursor icons (the default arrow, text select I-beam, and link select hand) with a "cloak" icon that is effectively invisible, hence achieving the effect of hiding the cursor.
 
