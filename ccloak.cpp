@@ -17,7 +17,7 @@ void AddTrayIcon(HWND hWnd) {
     nid.uVersion = NOTIFYICON_VERSION;
     nid.uCallbackMessage = WM_SYSICON;
     nid.hIcon = LoadIconW(NULL, MAKEINTRESOURCEW(32512));  // 32512 is the resource ID for the application icon
-    wcscpy_s(nid.szTip, L"Cursor Cloak);
+    wcscpy_s(nid.szTip, L"Cursor Cloak");
     nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     Shell_NotifyIconW(NIM_ADD, &nid);
 
