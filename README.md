@@ -25,10 +25,10 @@ Here's how the program works:
 1. Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
 
 ```sh
-g++ cloak.cpp -o cloak -luser32 -mwindows
+g++ ccloak.cpp -o ccloak -luser32 -mwindows
 ```
 
-This command tells `g++` to compile the source file `main.cpp` and output (`-o`) the resulting executable to a file called `cloak`. The `-luser32` flag links the User32 library, which the program requires. The -mwindows flag prevents the Command Prompt from appearing when running the program.
+This command tells `g++` to compile the source file `ccloak.cpp` and output (`-o`) the resulting executable to a file called `ccloak`. The `-luser32` flag links the User32 library, which the program requires. The -mwindows flag prevents the Command Prompt from appearing when running the program.
 
 2. Ensure the .cur files for the standard and "cloak" cursors are located in a subdirectory named "cursors".
 
