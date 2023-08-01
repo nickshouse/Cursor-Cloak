@@ -1,3 +1,4 @@
+![alt text](https://github.com/nickshouse/Cursor-Cloak/blob/main/ccloak.png?raw=true)
 
 # Mouse Cursor Hider (Windows)
 
