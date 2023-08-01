@@ -1,4 +1,3 @@
-
 bool keepRunning = true;
 #include <windows.h>
 #include <thread>
@@ -52,7 +51,9 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
                     HMENU hPopMenu = CreatePopupMenu();
                     InsertMenuW(hPopMenu, 0, MF_BYPOSITION | MF_STRING, ID_TRAY_EXIT, L"E&xit");
                     SetMenuDefaultItem(hPopMenu, ID_TRAY_EXIT, FALSE);
+                    SetForegroundWindow(hWnd);
                     TrackPopupMenu(hPopMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN, curPoint.x, curPoint.y, 0, hWnd, NULL);
+                    PostMessage(hWnd, WM_NULL, 0, 0);
                 } break;
             }
         } break;
