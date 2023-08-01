@@ -1,6 +1,6 @@
 ![alt text](https://github.com/nickshouse/Cursor-Cloak/blob/main/ccloak.png?raw=true)
 
-# Mouse Cursor Hider (Windows)
+# Overview
 
 This C++ program is designed to hide your mouse cursor after it has been idle for a certain period of time. It accomplishes this by replacing the most commonly seen cursor icons (the default arrow, text select I-beam, and link select hand) with a "cloak" icon that is effectively invisible, hence achieving the effect of hiding the cursor.
 
@@ -38,7 +38,7 @@ This command tells `g++` to compile the source file `main.cpp` and output (`-o`)
 ./cloak
 ```
 
-**Please Note:** This program uses Windows-specific API calls and is intended for use on Windows operating systems.
+**Please Note:** This program uses Windows-specific API calls and is intended for use on Windows operating systems only.
 
 ## Customization
 
