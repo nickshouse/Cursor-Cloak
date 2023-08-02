@@ -35,7 +35,7 @@ This command tells `g++` to compile the source file `ccloak.cpp` and output (`-o
 3. Run the compiled executable. The mouse cursor will now automatically disappear after 3 seconds of inactivity, and reappear as soon as the mouse is moved.
 
 ```sh
-./cloak
+./ccloak
 ```
 
 **Please Note:** This program uses Windows-specific API calls and is intended for use on Windows operating systems only.
