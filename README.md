@@ -1,3 +1,7 @@
+Sure, here's an updated version of your README file that includes instructions for compiling with the icon:
+
+---
+
 ![alt text](https://github.com/nickshouse/Cursor-Cloak/blob/main/ccloak.png?raw=true)
 
 # Overview
@@ -25,10 +29,12 @@ Here's how the program works:
 1. Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
 
 ```sh
-g++ ccloak.cpp -o ccloak -luser32 -mwindows
+g++ -c ccloak.cpp
+windres ccloak.rc -O coff -o ccloak.res
+g++ ccloak.o ccloak.res -o ccloak -luser32 -mwindows
 ```
 
-This command tells `g++` to compile the source file `ccloak.cpp` and output (`-o`) the resulting executable to a file called `ccloak`. The `-luser32` flag links the User32 library, which the program requires. The -mwindows flag prevents the Command Prompt from appearing when running the program.
+The first command tells `g++` to compile the source file `ccloak.cpp` and outputs the resulting object file to `ccloak.o`. The second command uses `windres` to compile the resource file `ccloak.rc` into `ccloak.res`. The third command links the object and resource files into the final executable `ccloak`. The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program.
 
 2. Ensure the .cur files for the standard and "cloak" cursors are located in a subdirectory named "cursors".
 
@@ -43,3 +49,7 @@ This command tells `g++` to compile the source file `ccloak.cpp` and output (`-o
 ## Customization
 
 You can customize the "cloak" cursor and the idle timeout period by providing a different "cloak" .cur file and modifying the `cursorIdleTime` variable in the source code, respectively. Please note that any changes will require recompilation of the program.
+
+---
+
+I've also attached a markdown file containing these updated instructions. You can download it and replace your existing README file with this one.
