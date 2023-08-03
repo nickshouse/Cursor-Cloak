@@ -1,6 +1,3 @@
-Sure, here's an updated version of your README file that includes instructions for compiling with the icon:
-
----
 
 ![alt text](https://github.com/nickshouse/Cursor-Cloak/blob/main/ccloak.png?raw=true)
 
@@ -26,19 +23,31 @@ Here's how the program works:
 
 ## How to Use
 
-1. Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
+Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
+
+First, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
 
 ```sh
 g++ -c ccloak.cpp
-windres ccloak.rc -O coff -o ccloak.res
-g++ ccloak.o ccloak.res -o ccloak -luser32 -mwindows
 ```
 
-The first command tells `g++` to compile the source file `ccloak.cpp` and outputs the resulting object file to `ccloak.o`. The second command uses `windres` to compile the resource file `ccloak.rc` into `ccloak.res`. The third command links the object and resource files into the final executable `ccloak`. The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program.
+Next, use `windres` to compile the resource file `ccloak.rc` into `ccloak.res`:
 
-2. Ensure the .cur files for the standard and "cloak" cursors are located in a subdirectory named "cursors".
+```sh
+windres ccloak.rc -O coff -o ccloak.res
+```
 
-3. Run the compiled executable. The mouse cursor will now automatically disappear after 3 seconds of inactivity, and reappear as soon as the mouse is moved.
+Finally, link the object and resource files into the final executable `ccloak`, with static linking of required libraries:
+
+```sh
+g++ -static ccloak.o ccloak.res -o ccloak -luser32 -mwindows
+```
+
+The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program.
+
+Ensure the .cur files for the standard and "cloak" cursors are located in a subdirectory named "cursors".
+
+Run the compiled executable. The mouse cursor will now automatically disappear after 3 seconds of inactivity, and reappear as soon as the mouse is moved.
 
 ```sh
 ./ccloak
@@ -49,7 +58,3 @@ The first command tells `g++` to compile the source file `ccloak.cpp` and output
 ## Customization
 
 You can customize the "cloak" cursor and the idle timeout period by providing a different "cloak" .cur file and modifying the `cursorIdleTime` variable in the source code, respectively. Please note that any changes will require recompilation of the program.
-
----
-
-I've also attached a markdown file containing these updated instructions. You can download it and replace your existing README file with this one.
