@@ -23,6 +23,10 @@ Here's how the program works:
 
 ## How to Use
 
+Go to the Releases and download the zip. Extract it anywhere and then run the .exe inside the Cursor Cloak folder.
+
+or
+
 Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
 
 First, compile the resource file `ccloak.rc` into `ccloak.res` using the `windres` command. This command translates the resources in the resource file into a binary format that can be included in the final executable:
