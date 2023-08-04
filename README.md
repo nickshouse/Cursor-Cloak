@@ -28,7 +28,7 @@ Compile the provided C++ source code file. You can do this using a C++ compiler 
 First, compile the resource file `ccloak.rc` into `ccloak.res`:
 
 ```sh
-windres ccloak.rc -O coff -o ccloak.res
+windres ccloak.rc -o coff -o ccloak.res
 ```
 
 Next, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
