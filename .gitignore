@@ -31,6 +31,6 @@
 *.out
 *.app
 
+ccloak.ico
 ccloak.res
 /release
-/ccloak.ico
