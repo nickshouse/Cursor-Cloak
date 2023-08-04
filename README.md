@@ -25,10 +25,10 @@ Here's how the program works:
 
 Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
 
-First, compile the resource file `ccloak.rc` into `ccloak.res`:
+First, compile the resource file `ccloak.rc` into `ccloak.res` using the `windres` command. This command translates the resources in the resource file into a binary format that can be included in the final executable:
 
 ```sh
-windres ccloak.rc -o coff -o ccloak.res
+windres ccloak.rc -O coff -o ccloak.res
 ```
 
 Next, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
@@ -40,10 +40,10 @@ g++ -c ccloak.cpp -o ccloak.o
 Finally, link the object and resource files into the final executable `ccloak`, with static linking of required libraries:
 
 ```sh
-g++ ccloak.o ccloak.res -o ccloak.exe -luser32 -mwindows -static-libgcc -static-libstdc++
+cmd.exe /C "g++ ccloak.o ccloak.res -o ccloak.exe -luser32 -mwindows -static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive"
 ```
 
-The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program. The `-static-libgcc` and `-static-libstdc++` flags statically link the GCC and Standard C++ library, making the resulting executable independent of these libraries on the user's system.
+The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program. The `-static-libgcc` and `-static-libstdc++` flags statically link the GCC and Standard C++ library, making the resulting executable independent of these libraries on the user's system. The `-Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive` part is used to statically link the `libwinpthread` library, which is necessary for multi-threading.
 
 Ensure the .cur files for the standard and "cloak" cursors are located in a subdirectory named "cursors".
 
