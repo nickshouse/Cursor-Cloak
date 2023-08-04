@@ -25,25 +25,25 @@ Here's how the program works:
 
 Compile the provided C++ source code file. You can do this using a C++ compiler such as `g++`. Here is an example of how to do this from the command line:
 
-First, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
-
-```sh
-g++ -c ccloak.cpp
-```
-
-Next, use `windres` to compile the resource file `ccloak.rc` into `ccloak.res`:
+First, compile the resource file `ccloak.rc` into `ccloak.res`:
 
 ```sh
 windres ccloak.rc -O coff -o ccloak.res
 ```
 
+Next, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
+
+```sh
+g++ -c ccloak.cpp -o ccloak.o
+```
+
 Finally, link the object and resource files into the final executable `ccloak`, with static linking of required libraries:
 
 ```sh
-g++ -static ccloak.o ccloak.res -o ccloak -luser32 -mwindows
+g++ ccloak.o ccloak.res -o ccloak.exe -luser32 -mwindows -static-libgcc -static-libstdc++
 ```
 
-The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program.
+The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program. The `-static-libgcc` and `-static-libstdc++` flags statically link the GCC and Standard C++ library, making the resulting executable independent of these libraries on the user's system.
 
 Ensure the .cur files for the standard and "cloak" cursors are located in a subdirectory named "cursors".
 
