@@ -38,13 +38,13 @@ windres ccloak.rc -O coff -o ccloak.res
 Next, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
 
 ```sh
-g++ -c main.cpp -o main.o
+g++ -c main.cpp -o main.o -municode
 ```
 
 Finally, link the object and resource files into the final executable `ccloak`, with static linking of required libraries:
 
 ```sh
-g++ main.o ccloak.res -o ccloak.exe -luser32 -mwindows -static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive
+g++ main.cpp ccloak.res -o ccloak.exe -municode -mwindows -luser32 -lgdi32 -lshell32 -lcomctl32
 ```
 
 The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program. The `-static-libgcc` and `-static-libstdc++` flags statically link the GCC and Standard C++ library, making the resulting executable independent of these libraries on the user's system. The `-Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive` part is used to statically link the `libwinpthread` library, which is necessary for multi-threading.
