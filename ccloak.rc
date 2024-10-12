@@ -1,7 +1,7 @@
 // ccloak.rc
 
-#define IDI_APP_ICON 101      // Application icon
-#define ID_TRAY_APP_ICON 5000 // Tray icon
-#define ID_TRAY_EXIT 3000     // Tray exit command
+// Resource definitions
+#define IDI_APP_ICON 101
 
+// Icon resource
 IDI_APP_ICON ICON "ccloak.ico"
