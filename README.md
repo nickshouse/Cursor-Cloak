@@ -44,7 +44,7 @@ g++ -c ccloak.cpp -o ccloak.o
 Finally, link the object and resource files into the final executable `ccloak`, with static linking of required libraries:
 
 ```sh
-cmd.exe /C "g++ ccloak.o ccloak.res -o ccloak.exe -luser32 -mwindows -static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive"
+g++ ccloak.o ccloak.res -o ccloak.exe -luser32 -mwindows -static-libgcc -static-libstdc++ -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive
 ```
 
 The `-luser32` flag links the User32 library, which the program requires. The `-mwindows` flag prevents the Command Prompt from appearing when running the program. The `-static-libgcc` and `-static-libstdc++` flags statically link the GCC and Standard C++ library, making the resulting executable independent of these libraries on the user's system. The `-Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive` part is used to statically link the `libwinpthread` library, which is necessary for multi-threading.
