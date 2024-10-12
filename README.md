@@ -38,7 +38,7 @@ windres ccloak.rc -O coff -o ccloak.res
 Next, compile the source file `ccloak.cpp` and output the resulting object file to `ccloak.o`:
 
 ```sh
-g++ -c ccloak.cpp -o ccloak.o
+g++ -c main.cpp -o main.o
 ```
 
 Finally, link the object and resource files into the final executable `ccloak`, with static linking of required libraries:
