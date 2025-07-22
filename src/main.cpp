@@ -13,12 +13,20 @@
 #define OCR_NORMAL 32512
 #endif
 
+#ifndef OCR_IBEAM
+#define OCR_IBEAM 32513
+#endif
+
+#ifndef OCR_WAIT
+#define OCR_WAIT 32514
+#endif
+
 #ifndef OCR_HAND
 #define OCR_HAND 32649
 #endif
 
-#ifndef OCR_IBEAM
-#define OCR_IBEAM 32513
+#ifndef OCR_APPSTARTING
+#define OCR_APPSTARTING 32650
 #endif
 
 #define WM_SYSICON (WM_USER + 1)  // System tray message
@@ -115,12 +123,44 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
 
     // Load cursors
     HCURSOR defaultCursor = LoadCursorFromFileW(L"cursors\\aero_arrow.cur");
-    HCURSOR defaultLinkCursor = LoadCursorFromFileW(L"cursors\\aero_link.cur");
-    HCURSOR defaultTextCursor = LoadCursorFromFileW(L"cursors\\beam_i.cur");
-    HCURSOR hiddenCursor = LoadCursorFromFileW(L"cursors\\cloak.cur");
+    if (!defaultCursor) {
+        MessageBoxW(NULL, L"Failed to load aero_arrow.cur", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
 
-    if (!defaultCursor || !defaultLinkCursor || !defaultTextCursor || !hiddenCursor) {
-        MessageBoxW(NULL, L"Failed to load cursors.", L"Error", MB_OK | MB_ICONERROR);
+    HCURSOR defaultLinkCursor = LoadCursorFromFileW(L"cursors\\aero_link.cur");
+    if (!defaultLinkCursor) {
+        MessageBoxW(NULL, L"Failed to load aero_link.cur", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
+
+    HCURSOR defaultTextCursor = LoadCursorFromFileW(L"cursors\\beam_i.cur");
+    if (!defaultTextCursor) {
+        MessageBoxW(NULL, L"Failed to load beam_i.cur", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
+
+    HCURSOR defaultBusyCursor = LoadCursorFromFileW(L"cursors\\aero_busy.ani");
+    if (!defaultBusyCursor) {
+        MessageBoxW(NULL, L"Failed to load aero_busy.ani", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
+
+    HCURSOR defaultAppStartingCursor = LoadCursorFromFileW(L"cursors\\aero_working.ani");
+    if (!defaultAppStartingCursor) {
+        MessageBoxW(NULL, L"Failed to load aero_working.ani", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
+
+    HCURSOR hiddenCursor = LoadCursorFromFileW(L"cursors\\cloak.cur");
+    if (!hiddenCursor) {
+        MessageBoxW(NULL, L"Failed to load cloak.cur", L"Error", MB_OK | MB_ICONERROR);
+        return -1;
+    }
+
+    HCURSOR hiddenBusyCursor = LoadCursorFromFileW(L"cursors\\cloak.ani");
+    if (!hiddenBusyCursor) {
+        MessageBoxW(NULL, L"Failed to load cloak.ani", L"Error", MB_OK | MB_ICONERROR);
         return -1;
     }
 
@@ -128,6 +168,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     SetSystemCursor(CopyCursor(defaultCursor), OCR_NORMAL);
     SetSystemCursor(CopyCursor(defaultLinkCursor), OCR_HAND);
     SetSystemCursor(CopyCursor(defaultTextCursor), OCR_IBEAM);
+    SetSystemCursor(CopyCursor(defaultBusyCursor), OCR_WAIT);
+    SetSystemCursor(CopyCursor(defaultAppStartingCursor), OCR_APPSTARTING);
 
     // Variables for cursor position tracking
     POINT lastPosition;
@@ -146,6 +188,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
                 SetSystemCursor(CopyCursor(defaultCursor), OCR_NORMAL);
                 SetSystemCursor(CopyCursor(defaultLinkCursor), OCR_HAND);
                 SetSystemCursor(CopyCursor(defaultTextCursor), OCR_IBEAM);
+                SetSystemCursor(CopyCursor(defaultBusyCursor), OCR_WAIT);
+                SetSystemCursor(CopyCursor(defaultAppStartingCursor), OCR_APPSTARTING);
 
                 lastPosition = currentPosition;
                 lastMovedTime = GetTickCount();
@@ -154,6 +198,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
                 SetSystemCursor(CopyCursor(hiddenCursor), OCR_NORMAL);
                 SetSystemCursor(CopyCursor(hiddenCursor), OCR_HAND);
                 SetSystemCursor(CopyCursor(hiddenCursor), OCR_IBEAM);
+                SetSystemCursor(CopyCursor(hiddenBusyCursor), OCR_WAIT);
+                SetSystemCursor(CopyCursor(hiddenBusyCursor), OCR_APPSTARTING);
             }
         }
     });
@@ -176,7 +222,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     DestroyCursor(defaultCursor);
     DestroyCursor(defaultLinkCursor);
     DestroyCursor(defaultTextCursor);
+    DestroyCursor(defaultBusyCursor);
+    DestroyCursor(defaultAppStartingCursor);
     DestroyCursor(hiddenCursor);
+    DestroyCursor(hiddenBusyCursor);
 
     return 0;
 }
